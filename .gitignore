@@ -1,0 +1,15 @@
+# Ignore temporary files and directories
+.history/
+.DS_Store
+
+# Hugo specific
+public/
+resources/
+hugo_stats.json
+
+# Node.js dependencies
+node_modules/
+
+# OS generated files
+Thumbs.db
+ehthumbs.db

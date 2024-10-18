@@ -1,0 +1,39 @@
+name: "Hacking and Coffee"
+license: ""
+licenselink: "https://github.com/0xDezzy/hackingandcoffee-theme/blob/main/LICENSE"
+description: "A theme for the Hacking and Coffee blog"
+homepage: "https://github.com/0xDezzy/hackingandcoffee-theme"
+
+tags:
+  - blog
+  - hacking
+  - coffee
+
+features:
+  - "Dark mode"
+  - "Light mode"
+  - "Syntax highlighting"
+  - "RSS feed"
+  - "Atom feed"
+  - "JSON feed"
+  - "Open Graph protocol"
+  - "Twitter card"
+  - "SEO"
+  - "Sitemap"
+  - "Robots.txt"
+  - "404 page"
+  - "Search"
+  - "Pagination"
+  - "Tags"
+  - "Categories"
+  - "Authors"
+  - "Archives"
+
+authors:
+  - name: "Justin Wagner"
+    homepage: "https://github.com/0xDezzy"
+    github: "0xDezzy"
+    twitter: "0xDezzy"
+    email: "Justin@goredteam.net"
+    description: "A security researcher and developer."
+
