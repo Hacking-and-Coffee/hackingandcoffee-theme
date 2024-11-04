@@ -1,0 +1,26 @@
+{{- $pages := .Site.RegularPages -}}
+[
+  {{- range $index, $page := $pages -}}
+    {{- if $index }},{{ end }}
+    {
+      "title": {{ $page.Title | jsonify }},
+      "link": {{ $page.Permalink | jsonify }},
+      "date": {{ $page.Date | time.Format "2006-01-02T15:04:05Z07:00" | jsonify }},
+      "description": {{ $page.Summary | plainify | jsonify }},
+      "content": {{ $page.Content | plainify | jsonify }},
+      "author": {{ with $page.Params.author }}{{ . | jsonify }}{{ else }}null{{ end }},
+      "tags": [
+        {{- range $i, $tag := $page.Params.tags -}}
+          {{- if $i }},{{ end }}
+          {{- $tag | jsonify -}}
+        {{- end -}}
+      ],
+      "categories": [
+        {{- range $i, $category := $page.Params.categories -}}
+          {{- if $i }},{{ end }}
+          {{- $category | jsonify -}}
+        {{- end -}}
+      ]
+    }
+  {{- end }}
+]

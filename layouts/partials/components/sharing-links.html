@@ -1,0 +1,97 @@
+{{ $url := .Permalink | absURL }}
+{{ $title := .Title }}
+{{ $siteName := .Site.Title }}
+
+{{- $.Scratch.Set "tags" ""}}
+
+{{- with .Params.Tags }}
+  {{- $hashtags := newScratch}}
+  {{- range . }}
+    {{ $hashtags.Add "tags" (slice (replaceRE "(\\s)" "" . )) }}
+  {{ end }}
+  {{- $.Scratch.Set "tags" (delimit ($hashtags.Get "tags") ",") }}
+{{- end -}}
+
+{{- $customButtons := false }}
+{{- $ShareButtons := (.Param "ShareButtons")}}
+{{- with $ShareButtons }}
+  {{ $customButtons = true }}
+{{ end }}
+
+<div class="flex space-x-4">
+  {{- if (or (cond ($customButtons) (in $ShareButtons "x") (true)) (cond ($customButtons) (in $ShareButtons "twitter") (true))) }}
+  <!-- Twitter -->
+  <a href="https://x.com/intent/tweet/?text={{ $title }}&amp;url={{ $url }}&amp;hashtags={{- $.Scratch.Get "tags" -}}" 
+     target="_blank" 
+     rel="noopener noreferrer" 
+     aria-label="Share {{ $title | plainify }} on Twitter"
+     class="text-hacking-royal-light dark:text-white hover:text-hacking-violet-lighter dark:hover:text-hacking-violet-lighter">
+    {{ partial "components/social-icon.html" (dict "icon" "x" "name" "Share on Twitter" "size" "24") }}
+    </a>
+  {{- end }}
+
+  {{- if (cond ($customButtons) (in $ShareButtons "facebook") (true)) }}
+  <!-- Facebook -->
+  <a href="https://www.facebook.com/sharer/sharer.php?u={{ $url }}" 
+     target="_blank" 
+     rel="noopener noreferrer" 
+     aria-label="Share {{ $title | plainify }} on Facebook"
+     class="text-hacking-royal-light dark:text-white hover:text-hacking-violet-lighter dark:hover:text-hacking-violet-lighter">
+    {{ partial "components/social-icon.html" (dict "icon" "facebook" "name" "Share on Facebook" "size" "24") }}
+  </a>
+  {{- end }}
+
+  {{- if (cond ($customButtons) (in $ShareButtons "linkedin") (true)) }}
+  <!-- LinkedIn -->
+  <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url={{ $url }}&amp;title={{ $title }}&amp;summary={{ $title }}&amp;source={{ $url }}" 
+     target="_blank" 
+     rel="noopener noreferrer" 
+     aria-label="Share {{ $title | plainify }} on LinkedIn"
+     class="text-hacking-royal-light dark:text-white hover:text-hacking-violet-lighter dark:hover:text-hacking-violet-lighter">
+    {{ partial "components/social-icon.html" (dict "icon" "linkedin" "name" "Share on LinkedIn" "size" "24") }}
+  </a>
+  {{- end }}
+
+  {{- if (cond ($customButtons) (in $ShareButtons "reddit") (true)) }}
+  <!-- Reddit -->
+  <a href="https://reddit.com/submit?url={{ $url }}&title={{ $title }}" 
+     target="_blank" 
+     rel="noopener noreferrer" 
+     aria-label="Share {{ $title | plainify }} on Reddit"
+     class="text-hacking-royal-light dark:text-white hover:text-hacking-violet-lighter dark:hover:text-hacking-violet-lighter">
+    {{ partial "components/social-icon.html" (dict "icon" "reddit" "name" "Share on Reddit" "size" "24") }}
+  </a>
+  {{- end }}
+
+  {{- if (cond ($customButtons) (in $ShareButtons "telegram") (true)) }}
+  <!-- Telegram -->
+  <a href="https://t.me/share/url?url={{ $url }}&text={{ $title }}" 
+     target="_blank" 
+     rel="noopener noreferrer" 
+     aria-label="Share {{ $title | plainify }} on Telegram"
+     class="text-hacking-royal-light dark:text-white hover:text-hacking-violet-lighter dark:hover:text-hacking-violet-lighter">
+    {{ partial "components/social-icon.html" (dict "icon" "telegram" "name" "Share on Telegram" "size" "24") }}
+  </a>
+  {{- end }}
+
+  {{- if (cond ($customButtons) (in $ShareButtons "whatsapp") (true)) }}
+  <!-- Whatsapp -->
+  <a href="https://api.whatsapp.com/send?text={{ $title }}%20-%20{{ $url }}" 
+     target="_blank" 
+     rel="noopener noreferrer" 
+     aria-label="Share {{ $title | plainify }} on Whatsapp"
+     class="text-hacking-royal-light dark:text-white hover:text-hacking-violet-lighter dark:hover:text-hacking-violet-lighter">
+    {{ partial "components/social-icon.html" (dict "icon" "whatsapp" "name" "Share on Whatsapp" "size" "24") }}
+  {{- end }}
+
+  {{- if (cond ($customButtons) (in $ShareButtons "email") (true)) }}
+  <!-- Email -->
+  <a href="mailto:?subject=Check out this post on {{ $title }}&body={{ $url }}" 
+     aria-label="Share {{ $title | plainify }} by Email"
+     class="text-hacking-royal-light dark:text-white hover:text-hacking-violet-lighter dark:hover:text-hacking-violet-lighter">
+    {{ partial "components/social-icon.html" (dict "icon" "envelope" "name" "Share by Email" "size" "24") }}
+  </a>
+  {{- end }}
+
+</div>
+

@@ -11,21 +11,47 @@ Renders a menu for the given menu ID.
 {{- $menuID := .menuID }}
 
 {{- with index site.Menus $menuID }}
-  <nav>
-    <ul>
-      {{- partial "inline/menu/walk.html" (dict "page" $page "menuEntries" .) }}
-    </ul>
+  <nav class="sticky top-0 z-50 bg-hacking-midnight-darker dark:bg-hacking-midnight px-4 py-2">
+    <div class="container mx-auto flex items-center justify-between">
+      <a href="/" class="text-white font-bold text-xl hover:text-hacking-violet-lighter">
+        {{ site.Title }}
+      </a>
+      <div class="hidden md:flex items-center space-x-4">
+        <ul class="flex items-center space-x-4">
+          {{- partial "inline/menu/walk.html" (dict "page" $page "menuEntries" .) }}
+        </ul>
+        <button id="theme-toggle" class="w-4 mb-1 text-white hover:text-hacking-violet-lighter">
+          <span class="icon-[material-symbols-light--mode-night] dark:icon-[material-symbols-light--sunny]"></span>
+        </button>
+      </div>
+      <div class="md:hidden">
+        <button id="mobile-menu-button" class="text-white hover:text-hacking-violet-lighter">
+          <span class="icon-[material-symbols-light--menu]"></span>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden">
+      <ul class="pt-2 pb-4">
+        {{- partial "inline/menu/walk.html" (dict "page" $page "menuEntries" . "mobile" true) }}
+      </ul>
+      <div class="pt-2 pb-4">
+        <button id="mobile-theme-toggle" class="w-4 text-white hover:text-hacking-violet-lighter">
+          <span class="icon-[material-symbols-light--mode-night] dark:icon-[material-symbols-light--sunny]"></span>
+        </button>
+      </div>
+    </div>
   </nav>
 {{- end }}
 
 {{- define "partials/inline/menu/walk.html" }}
   {{- $page := .page }}
+  {{- $mobile := .mobile | default false }}
   {{- range .menuEntries }}
-    {{- $attrs := dict "href" .URL }}
+    {{- $attrs := dict "href" .URL "class" (cond $mobile "block text-white hover:text-hacking-violet-lighter px-3 py-2 rounded-md text-sm font-medium" "text-white hover:text-hacking-violet-lighter px-3 py-2 rounded-md text-sm font-medium flex items-center") }}
     {{- if $page.IsMenuCurrent .Menu . }}
-      {{- $attrs = merge $attrs (dict "class" "active" "aria-current" "page") }}
+      {{- $attrs = merge $attrs (dict "class" (cond $mobile "block bg-hacking-violet text-white px-3 py-2 rounded-md text-sm font-medium" "bg-hacking-violet text-white px-3 py-2 rounded-md text-sm font-medium flex items-center") "aria-current" "page") }}
     {{- else if $page.HasMenuCurrent .Menu .}}
-      {{- $attrs = merge $attrs (dict "class" "ancestor" "aria-current" "true") }}
+      {{- $attrs = merge $attrs (dict "class" (cond $mobile "block text-hacking-violet-lighter hover:text-white px-3 py-2 rounded-md text-sm font-medium" "text-hacking-violet-lighter hover:text-white px-3 py-2 rounded-md text-sm font-medium flex items-center") "aria-current" "true") }}
     {{- end }}
     {{- $name := .Name }}
     {{- with .Identifier }}
@@ -33,18 +59,29 @@ Renders a menu for the given menu ID.
         {{- $name = . }}
       {{- end }}
     {{- end }}
-    <li>
+    <li class="relative group pb-2">
       <a
         {{- range $k, $v := $attrs }}
           {{- with $v }}
             {{- printf " %s=%q" $k $v | safeHTMLAttr }}
           {{- end }}
         {{- end -}}
-      >{{ $name }}</a>
+      >
+        {{ $name }}
+        {{- if and .Children (not $mobile) }}
+          <span class="icon-[mdi-light--chevron-down] ml-1"></span>
+        {{- end }}
+      </a>
       {{- with .Children }}
-        <ul>
-          {{- partial "inline/menu/walk.html" (dict "page" $page "menuEntries" .) }}
-        </ul>
+        {{- if $mobile }}
+          <ul class="pl-4">
+            {{- partial "inline/menu/walk.html" (dict "page" $page "menuEntries" . "mobile" true) }}
+          </ul>
+        {{- else }}
+          <ul class="absolute left-0 hidden bg-hacking-midnight dark:bg-hacking-midnight-darker mt-1 py-2 rounded-md shadow-lg z-10">
+            {{- partial "inline/menu/walk.html" (dict "page" $page "menuEntries" .) }}
+          </ul>
+        {{- end }}
       {{- end }}
     </li>
   {{- end }}

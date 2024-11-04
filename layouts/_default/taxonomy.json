@@ -1,0 +1,11 @@
+{{- $taxonomy := .Data.Terms -}}
+[
+  {{- range $index, $term := $taxonomy.ByCount -}}
+    {{- if $index }},{{ end }}
+    {
+      "name": {{ $term.Term | jsonify }},
+      "link": {{ $term.Page.Permalink | jsonify }},
+      "count": {{ $term.Count }}
+    }
+  {{- end }}
+]

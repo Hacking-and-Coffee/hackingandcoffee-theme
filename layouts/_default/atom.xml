@@ -1,0 +1,26 @@
+{{- $pages := .Site.RegularPages -}}
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>{{ .Site.Title | htmlEscape }}</title>
+  <link href="{{ .Site.BaseURL | relURL }}" />
+  <updated>{{ now.Format "2006-01-02T15:04:05Z07:00" }}</updated>
+  <id>{{ .Permalink }}</id>
+  <author>
+    <name>{{ .Site.Author.name }}</name>
+  </author>
+  {{ range $pages }}
+  <entry>
+    <title>{{ .Title | htmlEscape }}</title>
+    <link href="{{ .Permalink }}" />
+    <id>{{ .Permalink }}</id>
+    <updated>{{ .Date | time.Format "2006-01-02T15:04:05Z07:00" }}</updated>
+    <summary>{{ .Summary | plainify | htmlEscape }}</summary>
+    <content type="html">{{ .Content | htmlEscape }}</content>
+    {{ with .Params.author }}
+    <author>
+      <name>{{ . }}</name>
+    </author>
+    {{ end }}
+  </entry>
+  {{ end }}
+</feed>

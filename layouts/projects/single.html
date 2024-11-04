@@ -1,0 +1,49 @@
+{{ define "main" }}
+<article class="flex flex-col min-h-screen">
+  <!-- Header Section with Featured Image -->
+  <header class="relative bg-hacking-midnight-darker text-white py-20">
+    {{ if .Params.featured_image }}
+      <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{{ .Params.featured_image }}');">
+        <div class="absolute inset-0 bg-black opacity-50"></div>
+      </div>
+    {{ end }}
+    <div class="container mx-auto px-4 relative z-10">
+      <h1 class="text-4xl md:text-6xl font-bold mb-4">{{ .Title }}</h1>
+      {{ with .Params.subtitle }}
+        <p class="text-xl md:text-2xl mb-4">{{ . }}</p>
+      {{ end }}
+      {{ if .Params.project_url }}
+        <a href="{{ .Params.project_url }}" target="_blank" rel="noopener noreferrer" class="inline-block bg-hacking-violet hover:bg-hacking-violet-light text-white font-bold py-2 px-4 rounded">
+          Visit Project
+        </a>
+      {{ end }}
+    </div>
+  </header>
+
+  <!-- Content Section -->
+  <section class="bg-white dark:bg-hacking-slate-darker flex-grow py-16">
+    <div class="container mx-auto px-4">
+      <div class="prose dark:prose-invert max-w-none mb-12">
+        {{ .Content }}
+      </div>
+
+      <!-- Image Gallery -->
+      {{ if .Params.gallery }}
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-12">
+          {{ range .Params.gallery }}
+            <a href="{{ . }}" data-lightbox="project-gallery" class="block">
+              <img src="{{ . }}" alt="Project Image" class="w-full h-48 object-cover rounded shadow-lg hover:opacity-75 transition-opacity duration-300">
+            </a>
+          {{ end }}
+        </div>
+      {{ end }}
+    </div>
+  </section>
+</article>
+
+<!-- Lightbox2 CSS -->
+{{/* <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet"> */}}
+<!-- Lightbox2 JS -->
+{{/* <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox-plus-jquery.min.js"></script> */}}
+{{ end }}
+

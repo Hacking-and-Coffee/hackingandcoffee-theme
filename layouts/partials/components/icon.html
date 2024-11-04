@@ -1,0 +1,24 @@
+{{- $icon := .icon -}}
+{{- $size := .size | default "24" -}}
+{{- $class := .class | default "" -}}
+{{- $title := .title | default "" -}}
+
+<span class="inline-block" style="width: {{ $size }}px; height: {{ $size }}px;">
+  {{ $svg := resources.Get (printf "images/icons/%s.svg" $icon) }}
+  {{ if $svg }}
+    {{ $svgContent := $svg.Content }}
+    <!-- Remove any existing width, height, and fill attributes -->
+    {{ $svgContent := replaceRE `width="[^"]*"` "" $svgContent }}
+    {{ $svgContent := replaceRE `height="[^"]*"` "" $svgContent }}
+    {{ $svgContent := replaceRE `fill="[^"]*"` "" $svgContent }}
+    <!-- Insert the new class, width, and height attributes -->
+    {{ $svgContent := replace $svgContent "<svg" (printf "<svg class=\"%s fill-current text-hacking-midnight dark:text-white\" width=\"%spx\" height=\"%spx\"" $class $size $size) }}
+    {{ if $title }}
+      {{ $titleTag := printf "<title>%s</title>" $title }}
+      {{ $svgContent = replace $svgContent "<path" (printf "%s<path" $titleTag) }}
+    {{ end }}
+    {{ $svgContent | safeHTML }}
+  {{ else }}
+    <span class="text-red-500">Icon '{{ $icon }}' not found</span>
+  {{ end }}
+</span>

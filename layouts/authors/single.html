@@ -1,0 +1,38 @@
+{{ define "main" }}
+<div class="container mx-auto px-4 py-8">
+  <div class="mb-12">
+    {{ if .Params.author_image }}
+      <div class="relative h-96 md:h-[32rem] overflow-hidden rounded-lg shadow-xl">
+        <img src="{{ .Params.author_image | relURL }}" alt="Author Image" class="absolute top-0 left-0 w-full h-full object-cover object-top rounded-lg">
+        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-8">
+          <h1 class="text-4xl md:text-5xl font-bold text-white mb-2">{{ .Title }}</h1>
+          <p class="text-xl text-neutral-300">{{ .Params.description }}</p>
+        </div>
+      </div>
+    {{ else }}
+      <h1 class="text-4xl md:text-5xl font-bold text-hacking-midnight dark:text-white mb-8">{{ .Title }}</h1>
+    {{ end }}
+  </div>
+
+  <article class="prose prose-hacking-violet dark:prose-invert max-w-none mb-12">
+    {{ .Content }}
+  </article>
+
+  <!-- List of Author's Posts -->
+  <section>
+    <h2 class="text-3xl font-bold text-hacking-midnight dark:text-white mb-4">Posts by {{ .Title }}</h2>
+    <ul class="list-disc pl-5">
+      {{ range where .Site.Pages "Section" "posts" }}
+        {{ if eq .Params.author $.Title }}
+          <li class="mb-2">
+            <a href="{{ .RelPermalink }}" class="text-hacking-violet dark:text-hacking-violet-lighter hover:underline">
+              {{ .Title }}
+            </a>
+            <span class="text-sm text-neutral-500 dark:text-neutral-400">({{ .Date.Format "January 2, 2006" }})</span>
+          </li>
+        {{ end }}
+      {{ end }}
+    </ul>
+  </section>
+</div>
+{{ end }}

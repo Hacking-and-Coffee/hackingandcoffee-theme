@@ -1,0 +1,12 @@
+{{- $icon := .icon -}}
+{{- $name := .name -}}
+{{- $size := .size | default "24" -}}
+{{- $class := .class | default "" -}}
+
+<!-- Use the existing icon.html partial, but pass the name as the title -->
+{{ partial "components/icon.html" (dict
+    "icon" $icon
+    "size" $size
+    "class" (printf "fill-current text-hacking-midnight dark:text-white hover:text-hacking-violet dark:hover:text-hacking-violet-lighter transition-colors duration-300 %s" $class)
+    "title" $name
+) }}

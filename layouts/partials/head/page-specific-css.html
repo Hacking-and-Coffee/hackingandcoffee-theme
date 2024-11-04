@@ -1,0 +1,18 @@
+{{- $css := slice }}
+{{- $csslocal := false }}
+{{- range .Params.css }}
+  {{- $resource := resources.Get . }}
+  {{- if $resource }}
+    {{- $css = $css | append $resource }}
+    {{- $csslocal = true }}
+  {{- end }}
+{{- end }}
+
+{{- if $csslocal }}
+  {{- $styleName := printf "css/style_%s.min.css" .File.BaseFileName }}
+  {{- $styles := $css | resources.Concat $styleName }}
+  {{- if eq hugo.Environment "production" }}
+    {{- $styles = $styles | minify | fingerprint "sha384" }}
+  {{- end }}
+  <link rel="stylesheet" href="{{ $styles.RelPermalink }}" {{ if eq hugo.Environment "production" }}integrity="{{ $styles.Data.Integrity }}"{{ end }}>
+{{- end }}

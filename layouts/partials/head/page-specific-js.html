@@ -1,0 +1,18 @@
+{{- $js := slice }}
+{{- $jslocal := false }}
+{{- range .Params.js }}
+  {{- $resource := resources.Get . }}
+  {{- if $resource }}
+    {{- $js = $js | append $resource }}
+    {{- $jslocal = true }}
+  {{- end }}
+{{- end }}
+
+{{- if $jslocal }}
+  {{- $scriptName := printf "js/script_%s.min.js" .File.BaseFileName }}
+  {{- $scripts := $js | resources.Concat $scriptName }}
+  {{- if eq hugo.Environment "production" }}
+    {{- $scripts = $scripts | minify | fingerprint "sha384" }}
+  {{- end }}
+  <script src="{{ $scripts.RelPermalink }}" {{ if eq hugo.Environment "production" }}integrity="{{ $scripts.Data.Integrity }}"{{ end }} defer></script>
+{{- end }}

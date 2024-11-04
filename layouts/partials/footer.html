@@ -1,1 +1,34 @@
-<p>Copyright {{ now.Year }}. All rights reserved.</p>
+<footer class="bg-white dark:bg-hacking-midnight-darker text-hacking-midnight dark:text-white mt-auto">
+  <div class="container mx-auto px-4 py-8">
+    <div class="flex flex-col md:flex-row justify-between items-center">
+      <div class="mb-4 md:mb-0">
+        <img src="{{ "images/color_logo_transparent.svg" | relURL }}" alt="Hacking and Coffee Logo" class="h-16">
+        <div class="mt-4">
+          <!-- Social icons -->
+          <div class="flex space-x-4 px-6">
+            {{ range sort .Site.Data.socials "weight" }}
+              <a href="{{ .url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ .name }}">
+                {{ partial "components/social-icon.html" (dict "icon" .icon "name" .name "size" "24") }}
+              </a>
+            {{ end }}
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-wrap justify-center md:justify-end">
+        {{ range site.Menus.footer }}
+          <a href="{{ .URL }}" class="text-hacking-midnight dark:text-white hover:text-hacking-violet dark:hover:text-hacking-violet-lighter px-3 py-2">{{ .Name }}</a>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+  <div class="bg-gray-100 dark:bg-hacking-midnight border-t border-gray-200 dark:border-hacking-violet">
+    <div class="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center text-sm">
+      <p class="text-hacking-midnight dark:text-white">&copy; {{ now.Format "2006" }} {{ site.Params.copyrightHolder }}. All rights reserved.</p>
+      <div class="flex flex-wrap justify-center md:justify-end mt-2 md:mt-0">
+        {{ range site.Menus.bottom }}
+          <a href="{{ .URL }}" class="text-hacking-midnight dark:text-white hover:text-hacking-violet dark:hover:text-hacking-violet-lighter px-2 py-1">{{ .Name }}</a>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</footer>

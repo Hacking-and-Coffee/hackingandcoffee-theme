@@ -1,0 +1,25 @@
+{{- $pages := .Site.RegularPages -}}
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+  <channel>
+    <title>{{ .Site.Title | htmlEscape }}</title>
+    <link>{{ .Site.BaseURL | relURL }}</link>
+    <description>{{ .Site.Params.description | htmlEscape }}</description>
+    <language>{{ .Site.LanguageCode }}</language>
+    <lastBuildDate>{{ now.Format "Mon, 02 Jan 2006 15:04:05 MST" }}</lastBuildDate>
+    <generator>Hugo</generator>
+    {{ range $pages }}
+    <item>
+      <title>{{ .Title | htmlEscape }}</title>
+      <link>{{ .Permalink }}</link>
+      <guid>{{ .Permalink }}</guid>
+      <pubDate>{{ .Date | time.Format "Mon, 02 Jan 2006 15:04:05 MST" }}</pubDate>
+      <description>{{ .Summary | plainify | htmlEscape }}</description>
+      <content:encoded><![CDATA[{{ .Content | safeHTML }}]]></content:encoded>
+      {{ with .Params.author }}
+      <author>{{ . }}</author>
+      {{ end }}
+    </item>
+    {{ end }}
+  </channel>
+</rss>
