@@ -1,9 +1,9 @@
 {
-    "name": "hackingandcoffee",
-    "description": "The Hacking and Coffee blog",
+    "name": "hackingandcoffee-theme",
+    "description": "The Hacking and Coffee blog theme",
     "author": "Justin Wagner (0xDezzy)",
-    "homepage": "https://github.com/0xDezzy/hackingandcoffee-site",
-    "repository": "https://github.com/0xDezzy/hackingandcoffee-site",
+    "homepage": "https://github.com/Hacking-and-Coffee/hackingandcoffee-theme",
+    "repository": "https://github.com/Hacking-and-Coffee/hackingandcoffee-theme",
     "license": "",
     "version": "0.1.0",
     "scripts": {
