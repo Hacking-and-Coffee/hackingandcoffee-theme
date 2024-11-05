@@ -14,5 +14,5 @@ node_modules/
 Thumbs.db
 ehthumbs.db
 
-# Theme Content for development
-content/*
+# Development content
+content/
