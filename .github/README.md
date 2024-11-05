@@ -47,10 +47,6 @@ Tailwind CSS is configured in the main site's `package.json`. Ensure you have th
     "build:css": "npx tailwindcss -i ./themes/hackingandcoffee/assets/css/main.css -o ./themes/hackingandcoffee/assets/css/styles.css --minify",
     "watch:css": "npx tailwindcss -i ./themes/hackingandcoffee/assets/css/main.css -o ./themes/hackingandcoffee/assets/css/styles.css --watch",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,css,scss,html,md,yml,yaml,json}\"",
-    "hugo:server": "hugo server",
-    "hugo:build": "hugo --minify",
-    "dev": "npm-run-all --parallel watch:css hugo:server",
-    "build": "npm-run-all build:css hugo:build"
   },
 }
 ```
