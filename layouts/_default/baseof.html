@@ -3,15 +3,15 @@
 <head>
   {{ partial "head.html" . }}
 </head>
-<body class="overflow-hidden">
-  <div class="h-screen overflow-y-auto custom-scrollbar">
+<body class="overflow-hidden flex flex-col">
+  <div class="h-screen flex flex-col overflow-y-auto custom-scrollbar">
     <header>
       {{ partial "header.html" . }}
     </header>
-    <main>
+    <main class="flex-1">
       {{ block "main" . }}{{ end }}
     </main>
-    <footer>
+    <footer class="mt-auto">
       {{ partial "footer.html" . }}
     </footer>
   </div>
