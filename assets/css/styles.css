@@ -1772,6 +1772,11 @@ body:is(.dark *) {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
+.text-hacking-royal-darker {
+  --tw-text-opacity: 1;
+  color: rgb(36 3 101 / var(--tw-text-opacity));
+}
+
 .opacity-20 {
   opacity: 0.2;
 }
@@ -1974,6 +1979,11 @@ body:is(.dark *) {
 .dark\:text-white:is(.dark *) {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.dark\:text-hacking-royal-darker:is(.dark *) {
+  --tw-text-opacity: 1;
+  color: rgb(36 3 101 / var(--tw-text-opacity));
 }
 
 .dark\:hover\:text-hacking-violet-lighter:hover:is(.dark *) {

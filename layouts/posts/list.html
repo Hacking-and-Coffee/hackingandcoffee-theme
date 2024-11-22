@@ -13,56 +13,7 @@
     <div class="container mx-auto px-4">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {{ range .Pages }}
-          <div class="relative shadow-lg rounded-lg overflow-hidden h-full {{ if and site.Params.show_featured_image_in_list .Params.featured_image }}bg-transparent{{ else }}bg-white dark:bg-hacking-slate{{ end }}">
-            {{ if and site.Params.show_featured_image_in_list .Params.featured_image }}
-              <div class="absolute inset-0 bg-cover bg-center z-0" style="background-image: url('{{ .Params.featured_image }}');"></div>
-              <div class="absolute inset-0 bg-black opacity-70 z-10"></div>
-            {{ end }}
-            <div class="relative z-20 p-6 flex flex-col h-full">
-              <!-- Tags at the top -->
-              {{ if .Params.tags }}
-                <div class="mb-4 flex flex-wrap">
-                  {{ range .Params.tags }}
-                    <a href="/tags/{{ . | urlize }}" class="inline-block bg-hacking-violet text-white text-xs px-2 py-1 rounded mr-2 mb-2">{{ . }}</a>
-                  {{ end }}
-                </div>
-              {{ end }}
-
-              <a href="{{ .RelPermalink }}" class="block flex-grow">
-                <h2 class="text-xl font-semibold mb-2 {{ if and site.Params.show_featured_image_in_list .Params.featured_image }}text-white{{ else }}text-hacking-midnight dark:text-white{{ end }} hover:text-hacking-violet dark:hover:text-hacking-violet-lighter transition duration-300">{{ .Title }}</h2>
-                
-                {{ $content := default .Summary .Description | plainify }}
-                <p class="{{ if and site.Params.show_featured_image_in_list .Params.featured_image }}text-white{{ else }}text-neutral-600 dark:text-neutral-300{{ end }} mb-4">
-                  {{ $content | truncate 120 }}
-                </p>
-              </a>
-
-              <!-- Author and Category -->
-              <div class="flex items-center text-sm {{ if and site.Params.show_featured_image_in_list .Params.featured_image }}text-neutral-300{{ else }}text-neutral-500{{ end }} mb-4">
-                {{ if .Params.author }}
-                  <span class="font-bold text-lg mr-4">
-                    By 
-                    <a href="/authors/{{ .Params.author | urlize }}" class="text-hacking-royal-lighter hover:text-hacking-violet dark:hover:text-hacking-violet-lighter transition duration-300">
-                      {{ .Params.author }}
-                    </a>
-                  </span>
-                {{ end }}
-                {{ if .Params.category }}
-                  <span class="mr-4">Category: <span class="font-semibold">{{ .Params.category }}</span></span>
-                {{ end }}
-              </div>
-
-              <!-- Reading Time -->
-              {{ if .ReadingTime }}
-                <div class="flex items-center text-sm {{ if and site.Params.show_featured_image_in_list .Params.featured_image }}text-neutral-300{{ else }}text-neutral-500{{ end }}">
-                  <span class="icon-[mdi-light--clock] w-4 h-4 mr-1"></span>
-                  <span>{{ .ReadingTime }} min read</span>
-                </div>
-              {{ end }}
-
-              <span class="text-hacking-royal-lighter  hover:underline mt-4">Read more</span>
-            </div>
-          </div>
+          {{ partial "components/post-card.html" . }}
         {{ end }}
       </div>
     </div>

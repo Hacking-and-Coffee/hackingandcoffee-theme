@@ -12,7 +12,7 @@
           <span class="mr-4">{{ .Date.Format "January 2, 2006" }}</span>
           <span class="mr-4">{{ .ReadingTime }} min read</span>
           {{ with .Params.author }}
-            <span class="mr-4">By <a href="{{ "/authors/" | relLangURL }}{{ . | urlize }}" class="text-hacking-violet-lighter dark:text-hacking-violet-lighter hover:underline">{{ . }}</a></span>
+            <span class="mr-4">By <a href="{{ "/authors/" | relLangURL }}{{ . | urlize }}" class="text-hacking-voilet-darker dark:text-hacking-royal-darker hover:underline">{{ . }}</a></span>
           {{ end }}
           {{ with .Params.categories }}
             <span class="mr-4">In 
