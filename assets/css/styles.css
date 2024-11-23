@@ -1197,6 +1197,10 @@ body:is(.dark *) {
   top: 0px;
 }
 
+.top-1\/2 {
+  top: 50%;
+}
+
 .z-0 {
   z-index: 0;
 }
@@ -1272,6 +1276,10 @@ body:is(.dark *) {
 
 .mt-auto {
   margin-top: auto;
+}
+
+.mt-16 {
+  margin-top: 4rem;
 }
 
 .block {
@@ -1559,6 +1567,11 @@ body:is(.dark *) {
 .object-top {
   -o-object-position: top;
      object-position: top;
+}
+
+.object-center {
+  -o-object-position: center;
+     object-position: center;
 }
 
 .p-4 {
@@ -1984,6 +1997,11 @@ body:is(.dark *) {
 .dark\:text-hacking-royal-darker:is(.dark *) {
   --tw-text-opacity: 1;
   color: rgb(36 3 101 / var(--tw-text-opacity));
+}
+
+.dark\:text-hacking-violet:is(.dark *) {
+  --tw-text-opacity: 1;
+  color: rgb(79 46 153 / var(--tw-text-opacity));
 }
 
 .dark\:hover\:text-hacking-violet-lighter:hover:is(.dark *) {

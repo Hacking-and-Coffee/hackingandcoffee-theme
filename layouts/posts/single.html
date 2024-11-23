@@ -12,7 +12,7 @@
           <span class="mr-4">{{ .Date.Format "January 2, 2006" }}</span>
           <span class="mr-4">{{ .ReadingTime }} min read</span>
           {{ with .Params.author }}
-            <span class="mr-4">By <a href="{{ "/authors/" | relLangURL }}{{ . | urlize }}" class="text-hacking-voilet-darker dark:text-hacking-royal-darker hover:underline">{{ . }}</a></span>
+            <span class="mr-4">By <a href="{{ "/authors/" | relLangURL }}{{ . | urlize }}" class="text-hacking-voilet-darker dark:text-hacking-violet hover:underline">{{ . }}</a></span>
           {{ end }}
           {{ with .Params.categories }}
             <span class="mr-4">In 
@@ -73,6 +73,31 @@
         {{ else }}
           <p class="text-neutral-600 dark:text-neutral-300">No related posts found</p>
         {{ end }}
+
+        <div class="mt-8">
+          <h3 class="text-2xl font-bold text-hacking-midnight dark:text-white mb-4">Recent Posts</h3>
+          {{ $recent := where .Site.RegularPages "Section" "posts" | first 5 }}
+          {{ $otherPosts := where $recent "Permalink" "ne" .Permalink }}
+          {{ if $otherPosts }}
+            <div class="space-y-4">
+              {{ range $otherPosts | first 4 }}
+                <div class="bg-neutral-100 dark:bg-hacking-slate shadow-xl hover:shadow-2xl transition-shadow duration-300 rounded-lg overflow-hidden flex">
+                  {{ if and .Params.featured_image ($.Site.Params.show_featured_image_in_list | default false) }}
+                    <img src="{{ .Params.featured_image }}" alt="{{ .Title }}" class="w-1/3 h-24 object-cover">
+                  {{ end }}
+                  <div class="p-4 {{ if and .Params.featured_image ($.Site.Params.show_featured_image_in_list | default false) }}w-2/3{{ else }}w-full{{ end }}">
+                    <h4 class="font-semibold text-hacking-midnight dark:text-white hover:text-hacking-violet dark:hover:text-hacking-violet-lighter">
+                      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                    </h4>
+                    {{ with .Params.author }}
+                      <p class="text-sm text-neutral-600 dark:text-neutral-300">By <a href="{{ "/authors/" | relLangURL }}{{ . | urlize }}" class="text-hacking-violet dark:text-hacking-violet-lighter hover:underline">{{ . }}</a></p>
+                    {{ end }}
+                  </div>
+                </div>
+              {{ end }}
+            </div>
+          {{ end }}
+        </div>
       </aside>
     </div>
   </div>
